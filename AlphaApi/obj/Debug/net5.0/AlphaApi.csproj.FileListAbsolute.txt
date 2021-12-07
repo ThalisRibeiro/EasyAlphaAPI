@@ -1,0 +1,12 @@
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\bin\Debug\net5.0\AlphaApi.deps.json
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\bin\Debug\net5.0\AlphaApi.dll
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\bin\Debug\net5.0\ref\AlphaApi.dll
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\bin\Debug\net5.0\AlphaApi.pdb
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\AlphaApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\AlphaApi.AssemblyInfoInputs.cache
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\AlphaApi.AssemblyInfo.cs
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\AlphaApi.csproj.CoreCompileInputs.cache
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\AlphaApi.dll
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\ref\AlphaApi.dll
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\AlphaApi.pdb
+C:\Users\thali\source\repos\EasyAlpha\AlphaApi\obj\Debug\net5.0\AlphaApi.csproj.AssemblyReference.cache
