@@ -27,6 +27,7 @@ namespace AlphaApi
                     return date;
                     
                 case 2:
+                    dado = dado.Replace("%", "");
                     var valor2 = Convert.ToDecimal(dado) / 1000000;
                     return valor2;
                 default:
@@ -55,13 +56,19 @@ namespace AlphaApi
             string url = ($@"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+ $"{stock}{suffix}&apikey={Key}");
             string response = Response(url).Result;
             Console.WriteLine(response);
-            var converter = JsonConvert.DeserializeObject<RootQuote>(response);
+            var Deserialized = JsonConvert.DeserializeObject<RootQuote>(response);
             //converte todas as strings erradas para decimal, data e porcentagem
-            decimal open = Conversor(0, converter.GlobalQuote.open);
-            decimal high = Conversor(0, converter.GlobalQuote.High);
-            decimal low = Conversor(0, converter.GlobalQuote.Low);
-            decimal price = Conversor(0, converter.GlobalQuote.Price);
-            var quoteEndpoint = new GlobalQuoteConverted(converter.GlobalQuote.Symbol, open, high, low, price);
+            decimal open = Conversor(0, Deserialized.GlobalQuote.open);
+            decimal high = Conversor(0, Deserialized.GlobalQuote.High);
+            decimal low = Conversor(0, Deserialized.GlobalQuote.Low);
+            decimal price = Conversor(0, Deserialized.GlobalQuote.Price);
+            decimal Volume = Conversor(0, Deserialized.GlobalQuote.Volume);
+            DateTime LatestTradinDay = Conversor(1, Deserialized.GlobalQuote.LatestTradingDay);
+            decimal PreviousClose = Conversor(0, Deserialized.GlobalQuote.PreviousClose);
+            decimal Change = Conversor(0, Deserialized.GlobalQuote.Change);
+            decimal ChangePercent = Conversor(2, Deserialized.GlobalQuote.ChangePercent);
+
+            var quoteEndpoint = new GlobalQuoteConverted(Deserialized.GlobalQuote.Symbol, open, high, low, price, Volume, LatestTradinDay, PreviousClose, Change, ChangePercent);
             return  quoteEndpoint;
 
         }
