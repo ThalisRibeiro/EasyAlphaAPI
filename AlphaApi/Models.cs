@@ -13,7 +13,7 @@ namespace AlphaApi
         public string Symbol { get; set; }
         
         [JsonProperty("02. open")]
-        public string open { get; set; }
+        public string Open { get; set; }
         
         [JsonProperty("03. high")]
         public string High { get; set; }

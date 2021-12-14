@@ -42,23 +42,15 @@ namespace AlphaApi
             Client = new(url);
             Client.Timeout = 10000;
             IRestResponse response = await Client.ExecuteAsync(request);
-            Console.WriteLine($"{response.StatusCode}  {response.Content}");
-
+            //Console.WriteLine($"{response.StatusCode}  {response.Content}");
+            Client.Timeout = 0;
             return response.Content;
         }
 
-
-        //Retorna uma classe Global Quote pronta com todos os valores ja convertidos, se não quiser retornar somente um valor, QuoteEndpoint."valor escolhido"
-        public static GlobalQuoteConverted QuoteEndpoint(string stock, string suffix=(""))
+        private static GlobalQuoteConverted ConvertToQuote(RootQuote Deserialized)
         {
-            stock = stock.ToUpper();
-            suffix = suffix.ToUpper();
-            string url = ($@"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+ $"{stock}{suffix}&apikey={Key}");
-            string response = Response(url).Result;
-            Console.WriteLine(response);
-            var Deserialized = JsonConvert.DeserializeObject<RootQuote>(response);
             //converte todas as strings erradas para decimal, data e porcentagem
-            decimal open = Conversor(0, Deserialized.GlobalQuote.open);
+            decimal open = Conversor(0, Deserialized.GlobalQuote.Open);
             decimal high = Conversor(0, Deserialized.GlobalQuote.High);
             decimal low = Conversor(0, Deserialized.GlobalQuote.Low);
             decimal price = Conversor(0, Deserialized.GlobalQuote.Price);
@@ -69,8 +61,36 @@ namespace AlphaApi
             decimal ChangePercent = Conversor(2, Deserialized.GlobalQuote.ChangePercent);
 
             var quoteEndpoint = new GlobalQuoteConverted(Deserialized.GlobalQuote.Symbol, open, high, low, price, Volume, LatestTradinDay, PreviousClose, Change, ChangePercent);
-            return  quoteEndpoint;
-
+            return quoteEndpoint;
         }
+
+
+        //Retorna uma classe Global Quote pronta com todos os valores ja convertidos, se não quiser retornar somente um valor, QuoteEndpoint."valor escolhido"
+        public static GlobalQuoteConverted QuoteEndpoint(string stock, string suffix=(""))
+        {
+            try
+            {
+                stock = stock.ToUpper();
+                suffix = suffix.ToUpper();
+                string url = ($@"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + $"{stock}{suffix}&apikey={Key}");
+
+                string response = Response(url).Result;
+
+                var Deserialized = JsonConvert.DeserializeObject<RootQuote>(response);
+                GlobalQuoteConverted quoteEndpoint = ConvertToQuote(Deserialized); return quoteEndpoint;
+            }
+
+            catch (NullReferenceException ex)
+            {
+                throw new Exception("Error getting data, see if the stock symbol is right ", ex);
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        
     }
 }
